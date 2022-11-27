@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block codigoDinamico %}
+    <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Géneros</h1>
+                        <span class="subheading">Elige un género para navegar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <ul class="list-inline text-center">
+        <li class="list-inline-item">
+            <h3><a href="{% url 'accion' %}">Accion</a> |</h3>
+        </li>
+        <li class="list-inline-item">
+            <h3><a href="{% url 'drama' %}">Drama</a> |</h3>
+        </li>
+        <li class="list-inline-item">
+            <h3><a href="{% url 'terror' %}">Terror</a> |</h3>
+        </li>
+        <li class="list-inline-item">
+            <h3> <a href="{% url 'ciencia_ficcion' %}">Ciencia Ficcion</a> |</h3>
+        </li>
+        <li class="list-inline-item">
+            <h3> <a href="{% url 'comedia' %}">Comedia</a> |</h3>
+        </li>
+        <li class="list-inline-item">
+            <h3><a href="{% url 'fantasia' %}">Fantasia</a> |</h3>
+        </li>
+    </ul>
+{% endblock %}
