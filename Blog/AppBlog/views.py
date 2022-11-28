@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth import get_user
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 from datetime import date
-from datetime import date
+import random
+
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    blogs = list(Blog.objects.all())
+    random_blog = random.choice(blogs)
+    return render(request, "index.html", {"blog":random_blog})
     
 def mostrar_actor(request):
     actores = Actor.objects.all()
@@ -44,19 +48,23 @@ def about_us(request):
     return render(request, "about_us.html")
 
 def crear_blog(request):
-
     if request.method == "POST":
         formulario = BlogForm(request.POST)
         if formulario.is_valid():
-            fomrulario_limpio = formulario.cleaned_data
-            blog = Blog(titulo=fomrulario_limpio["titulo"],subtitulo=fomrulario_limpio["subtitulo"],anio=fomrulario_limpio["anio"],duracion=fomrulario_limpio["duracion"],genero=fomrulario_limpio["genero"],resenia=fomrulario_limpio["resenia"],estrellas=fomrulario_limpio["estrellas"],autor=fomrulario_limpio["autor"],fecha=date.today())
+            info = formulario.cleaned_data
+            blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"])
             blog.save()
-            blog = Blog.onjects.all()
-            return render(request, "index.html", {"formulario":formulario})
-    
+            blogs = list(Blog.objects.all())
+            random_blog = random.choice(blogs)
+            return render(request, "index.html", {"blog":random_blog})
     else:
-        formulario = BlogForm()
-    
+        usuario=get_user(request)
+        fecha=date.today()
+        initial_data={
+            'autor':usuario,
+            'fecha':fecha,
+        }
+        formulario = BlogForm(initial=initial_data)
     return render(request, "crear_blog.html", {"formulario":formulario})
 
 class SignupView(CreateView):

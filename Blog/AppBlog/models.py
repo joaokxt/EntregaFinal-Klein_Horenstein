@@ -29,14 +29,14 @@ class Blog(models.Model):
     )
     titulo = models.CharField(max_length=50)
     subtitulo = models.CharField(max_length=50)
-    anio = models.IntegerField()
+    anio = models.DateField()
     duracion = models.IntegerField()
     genero = models.CharField(max_length=30, choices=GENEROS)
     resenia = models.CharField(max_length=500)
     estrellas = models.CharField(max_length=2, choices=ESTRELLAS)
     autor = models.CharField(max_length=50)
     fecha = models.DateTimeField()
-    #imagen = models.ImageField(upload_to='images/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True)
     def __str__(self):
         return f"{self.titulo} ({self.anio}) || {self.estrellas}/5"
 
