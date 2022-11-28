@@ -27,7 +27,13 @@ def mostrar_generos(request):
     return render(request, "generos.html")
 
 def accion(request):
-    pass
+    lista_accion = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Acción":
+            lista_accion.append(blog)
+    return render(request, "accion.html", {"lista_accion":lista_accion})
+
 
 def drama(request):
     pass
