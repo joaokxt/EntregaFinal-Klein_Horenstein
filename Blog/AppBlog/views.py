@@ -51,8 +51,8 @@ def crear_blog(request):
                         ,anio=fomrulario_limpio["anio"],duracion=fomrulario_limpio["duracion"],genero=fomrulario_limpio["genero"],resenia=fomrulario_limpio["resenia"]
                         ,estrellas=fomrulario_limpio["estrellas"],autor=fomrulario_limpio["autor"],fecha=fomrulario_limpio["fecha"],imagen=fomrulario_limpio["imagen"])
             blog.save()
-            blogs = Blog.onjects.all()
-            return render(request, "index.html", {"blogs":blogs})
+            blog = Blog.onjects.all()
+            return render(request, "index.html", {"formulario":formulario})
     
     else:
         formulario = BlogForm()
