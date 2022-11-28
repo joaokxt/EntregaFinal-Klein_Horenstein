@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 from datetime import date
+from datetime import date
 
 # Create your views here.
 def index(request):
