@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import *
 from .forms import *
+from datetime import date
 
 # Create your views here.
 def index(request):
@@ -44,15 +45,13 @@ def about_us(request):
 def crear_blog(request):
 
     if request.method == "POST":
-        formulario = BlogForm(reqeust.POST)
-        if formulario.is_valid() == True:
+        formulario = BlogForm(request.POST)
+        if formulario.is_valid():
             fomrulario_limpio = formulario.cleaned_data
-            blog = Blog(titulo=fomrulario_limpio["titulo"],subtitulo=fomrulario_limpio["subtitulo"]
-                        ,anio=fomrulario_limpio["anio"],duracion=fomrulario_limpio["duracion"],genero=fomrulario_limpio["genero"],resenia=fomrulario_limpio["resenia"]
-                        ,estrellas=fomrulario_limpio["estrellas"],autor=fomrulario_limpio["autor"],fecha=fomrulario_limpio["fecha"],imagen=fomrulario_limpio["imagen"])
+            blog = Blog(titulo=fomrulario_limpio["titulo"],subtitulo=fomrulario_limpio["subtitulo"],anio=fomrulario_limpio["anio"],duracion=fomrulario_limpio["duracion"],genero=fomrulario_limpio["genero"],resenia=fomrulario_limpio["resenia"],estrellas=fomrulario_limpio["estrellas"],autor=fomrulario_limpio["autor"],fecha=date.today())
             blog.save()
-            blogs = Blog.onjects.all()
-            return render(request, "index.html", {"blogs":blogs})
+            blogs = Blog.objects.all()
+            return render(request, "base.html", {"blogs":blogs})
     
     else:
         formulario = BlogForm()
