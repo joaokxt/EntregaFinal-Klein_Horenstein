@@ -7,8 +7,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>LOGIN</h1>
-                            <span class="subheading">No tienes una cuenta? <a href="{% url 'signup' %}">Registrate</a></span>
+                            <h1>SIGNUP</h1>
                         </div>
                     </div>
                 </div>
@@ -19,11 +18,11 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <h5>
+                        <p>
                             {{form.as_p}} 
-                        </h5>
+                        </p>
                         <h5>
-                            <button type="submit", href="{% url 'inicio' %}"> Iniciar Sesión </button>
+                            <button type="submit", href="{% url 'inicio' %}"> Registrarse </button>
                         </h5>
                         <br>
                 </div>

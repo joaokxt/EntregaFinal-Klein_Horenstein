@@ -1,5 +1,7 @@
-{% extends 'base.html' %}
+
+{% extends "base.html" %}
 {% load static %}
+
 {% block codigoDinamico %}
     <body>
         <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
@@ -7,8 +9,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>LOGIN</h1>
-                            <span class="subheading">No tienes una cuenta? <a href="{% url 'signup' %}">Registrate</a></span>
+                            <h1>Crear Reseña</h1>
                         </div>
                     </div>
                 </div>
@@ -17,17 +18,10 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <h5>
-                            {{form.as_p}} 
-                        </h5>
-                        <h5>
-                            <button type="submit", href="{% url 'inicio' %}"> Iniciar Sesión </button>
-                        </h5>
-                        <br>
-                </div>
-            </div>
-        </div>
-    </body>
+                    <form action=" " method="POST">{% csrf_token %}
+                        <table>
+                            {{ formulario.as_table }}
+                        </table>
+                        <input type="submit", value="Publicar", href="{% url 'blog_mostrar'}">
+                    </form>
 {% endblock %}

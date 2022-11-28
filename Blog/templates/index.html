@@ -37,7 +37,11 @@
                         <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Ver todos los posteos →</a></div>
                     {% else %}
                             <h4> Aún no hay reseñas! </h4>
-                            Sé el primero en escribir una
+                            {% if request.user.is_authenticated  %}
+                                <p>Sé el primero en escribir una</p>
+                            {% else %}
+                                <p>Haz login para empezar a escribir!</p>
+                            {% endif %}
                             <br><br>
                     {% endif %}
                 </div>
