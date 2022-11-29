@@ -36,9 +36,9 @@ class Blog(models.Model):
     estrellas = models.CharField(max_length=2, choices=ESTRELLAS)
     autor = models.CharField(max_length=50)
     fecha = models.DateTimeField()
-    imagen = models.ImageField(upload_to='images/', null=True, blank=True)
+    #imagen = models.ImageField(upload_to='images/', null=True, blank=True)
     def __str__(self):
-        return f"{self.titulo} ({self.anio}) || {self.estrellas}/5"
+        return f"{self.titulo} ({self.anio}) || {self.estrellas}/5 || Por {self.autor}"
 
 
 class Director(models.Model):
@@ -48,10 +48,3 @@ class Director(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido} ({self.edad}) "
     
-
-
-
-
-
-
-

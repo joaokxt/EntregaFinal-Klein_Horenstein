@@ -9,22 +9,42 @@ from .forms import *
 from datetime import date
 import random
 
-
 # Create your views here.
 def index(request):
-    blogs = list(Blog.objects.all())
-    random_blog = random.choice(blogs)
-    return render(request, "index.html", {"blog":random_blog})
-    
+    blogs = Blog.objects.all()
+    if blogs != None:
+        blog = random.choice(blogs)
+    return render(request, "index.html", {"blog":blog})
+
+def mostrar_blogs(request):
+    blogs = Blog.objects.all()
+    return render(request, "mostrar_blogs.html", {"blogs":blogs})
+
+
+def mostrar_blog(request, blog_id):
+    blog = Blog.objects.get(id=blog_id)
+    return render(request, "mostrar_blog.html", {"blog":blog})
+
+
+def eliminar_blog(request, blog_id):
+    blog = Blog.objects.get(id=blog_id)
+    blog.delete()
+    blogs = Blog.objects.all()
+    return render(request, "mostrar_blogs.html", {"blogs":blogs})
+
+
 def mostrar_actor(request):
     actores = Actor.objects.all()
     return render(request, "mostrar_actor.html", {"actores":actores})
 
+
 def agregar_actor(request):
     pass
 
+
 def mostrar_generos(request):
     return render(request, "generos.html")
+
 
 def accion(request):
     lista_accion = []
@@ -36,19 +56,48 @@ def accion(request):
 
 
 def drama(request):
-    pass
+    lista_drama = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Drama":
+            lista_drama.append(blog)
+    return render(request, "drama.html", {"lista_drama":lista_drama})
+
 
 def terror(request):
-    pass
+    lista_terror = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Terror":
+            lista_terror.append(blog)
+    return render(request, "terror.html", {"lista_terror":lista_terror})
+
 
 def ciencia_ficcion(request):
-    pass
+    lista_ciencia_ficcion = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Ciencia-Ficción":
+            lista_ciencia_ficcion.append(blog)
+    return render(request, "ciencia_ficcion.html", {"lista_ciencia_ficcion":lista_ciencia_ficcion})
+
 
 def comedia(request):
-    pass
+    lista_comedia = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Comedia":
+            lista_comedia.append(blog)
+    return render(request, "comedia.html", {"lista_comedia":lista_comedia})
+
 
 def fantasia(request):
-    pass
+    lista_fantasia = []
+    blogs = list(Blog.objects.all())
+    for blog in blogs:
+        if blog.genero == "Fantasia":
+            lista_fantasia.append(blog)
+    return render(request, "fantasia.html", {"lista_fantasia":lista_fantasia})
 
 def about_us(request):
     return render(request, "about_us.html")
@@ -72,6 +121,7 @@ def crear_blog(request):
         }
         formulario = BlogForm(initial=initial_data)
     return render(request, "crear_blog.html", {"formulario":formulario})
+
 
 class SignupView(CreateView):
     form_class=SignUpForm

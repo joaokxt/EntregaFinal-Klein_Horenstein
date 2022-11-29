@@ -21,7 +21,7 @@
                     {% if blog %}
                         <h1>Publicación para vos</h1>
                         <div class="post-preview">
-                            <a href="{% url 'inicio' %}">
+                            <a href="{% url 'mostrar_blog' blog.id %}">
                                 <h2 class="post-title">{{blog.titulo}}</h2>
                                 <h3 class="post-subtitle">{{blog.subtitulo}}</h3>
                             </a>
@@ -32,7 +32,7 @@
                             </p>
                         </div>
                         <hr class="my-4" />
-                        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Ver todos los posteos →</a></div>
+                        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'mostrar_blogs' %}">Ver todos los posteos →</a></div>
                     {% else %}
                             <h4> Aún no hay reseñas! </h4>
                             {% if request.user.is_authenticated  %}

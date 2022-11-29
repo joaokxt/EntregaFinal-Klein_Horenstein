@@ -8,7 +8,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>Acción</h1>
+                            <h1>Todas las reseñas</h1>
                         </div>
                     </div>
                 </div>
@@ -17,18 +17,20 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% if lista_accion %}
+                    {% if blogs %}
                         <ol>
-                            {% for pelicula in lista_drama %}
-                                <li>
-                                    <button>
-                                        <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
-                                    </button>
+                            {% for blog in blogs %}
+                                <li> 
+                                    <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
+                                    {% if request.user.is_superuser %}
+                                        <button><a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a></button>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
-                        </ol> 
+                        </ol>
                     {% else %}
-                        <h4> Aún no hay reseñas de peliculas de drama! </h4>
+                        No hay ninguna reseña aun
+                        <br>
                     {% endif %}
                 </div>
             </div>

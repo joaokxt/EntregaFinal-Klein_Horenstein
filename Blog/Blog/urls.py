@@ -20,5 +20,5 @@ from AppBlog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name="inicio"),
-    re_path('', include('AppBlog.urls')),
+    re_path('AppBlog/', include('AppBlog.urls')),
 ]

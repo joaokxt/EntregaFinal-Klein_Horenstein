@@ -8,7 +8,8 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>Acción</h1>
+                            <h1>"{{blog.subtitulo}}"</h1>
+                            <h5>Reseña de {{blog.titulo}} por {{blog.autor}}</h5>
                         </div>
                     </div>
                 </div>
@@ -17,18 +18,17 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% if lista_accion %}
-                        <ol>
-                            {% for pelicula in lista_drama %}
-                                <li>
-                                    <button>
-                                        <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
-                                    </button>
-                                </li>
-                            {% endfor %}
-                        </ol> 
+                    <p>{{blog.resenia}}</p>
+                    <h3>Nota final: {{blog.estrellas}} / 5 </h3>
+                    <p>Publicado el: {{blog.fecha}}</p>
+                    {% if  request.user.is_superuser %}
+                        <button>
+                            <a href="{% url 'eliminar_blog' blog.id %}" ></a>
+                        </button>
                     {% else %}
-                        <h4> Aún no hay reseñas de peliculas de drama! </h4>
+                        <p>No se puede eliminar blog(prueba)</p>
+                        
+                    
                     {% endif %}
                 </div>
             </div>
