@@ -24,6 +24,7 @@
                                     <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
                                     {% if request.user.is_superuser %}
                                         <button><a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a></button>
+                                        <button><a href="{% url 'editar_blog' blog.id %}">Editar</a></button>
                                     {% endif %}
                                 </li>
                             {% endfor %}
