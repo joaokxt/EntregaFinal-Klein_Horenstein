@@ -19,4 +19,5 @@ urlpatterns = [
     path("about/", views.about_us, name="about_us"),
     path("logout/", views.AdminLogoutView.as_view(), name="logout"),
     path("crear_resenia/", views.crear_blog, name="crear_resenia"),
+    path("buscar/", views.buscar_blog, name="buscar"),
 ]
