@@ -21,14 +21,13 @@
                     <p>{{blog.resenia}}</p>
                     <h3>Nota final: {{blog.estrellas}} / 5 </h3>
                     <p>Publicado el: {{blog.fecha}}</p>
-                    {% if  request.user.is_superuser %}
+                    {% if request.user.is_superuser %}
                         <button>
-                            <a href="{% url 'eliminar_blog' blog.id %}" ></a>
+                            <a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a>
                         </button>
-                    {% else %}
-                        <p>No se puede eliminar blog(prueba)</p>
-                        
-                    
+                        <button>
+                            <a href="{% url 'editar_blog' blog.id %}">Editar</a>
+                        </button>
                     {% endif %}
                 </div>
             </div>

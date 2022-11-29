@@ -6,6 +6,8 @@ urlpatterns = [
     path('signup/', views.SignupView.as_view(), name="signup"),
     path('blogs/', views.mostrar_blogs, name="mostrar_blogs"),
     path('blogs/<blog_id>/', views.mostrar_blog, name="mostrar_blog"),
+    path("editar_blog/<blog_id>/", views.editar_blog, name="editar_blog"),
+    path("eliminar_blog/<blog_id>/", views.eliminar_blog, name="eliminar_blog"),
     path("generos/", views.mostrar_generos, name="mostrar_generos"),
     path("accion/", views.accion , name="accion"),
     path("drama/", views.drama , name="drama"),
@@ -17,5 +19,4 @@ urlpatterns = [
     path("about/", views.about_us, name="about_us"),
     path("logout/", views.AdminLogoutView.as_view(), name="logout"),
     path("crear_resenia/", views.crear_blog, name="crear_resenia"),
-    path("eliminar_blog/<blog_id>/", views.eliminar_blog, name="eliminar_blog")
 ]
