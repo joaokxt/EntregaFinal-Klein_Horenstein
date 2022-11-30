@@ -26,6 +26,11 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p> No se encontro una reseña con ese autor </p>
+        {% if blog.autor == autor %}
+            <p> No se encontro </p>
+        {% else %}
+            <p> Ingrese un autor </p>
+        {% endif %}
+        
     {% endif %}
 {% endblock %}
