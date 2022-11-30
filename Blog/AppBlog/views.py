@@ -63,13 +63,15 @@ def editar_blog(request, blog_id):
         formulario = BlogForm(initial=initial_data)
     return render(request, 'editar_blogs.html', {'formulario':formulario})
 
+
 def buscar_blog(request):
     if request.GET.get("autor", False):
         autor=request.GET["autor"]
-        blogs = Blog.objects.filter(autor_icontains=autor)
+        blogs = Blog.objects.filter(autor__icontains=autor)
         return render(request, "buscar_blog.html", {"blogs":blogs})
     else:
         mensaje="No se encontró ningun Blog con ese autor"
+    return render(request, "buscar_blog.html")
 
 
 def mostrar_actor(request):
