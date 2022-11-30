@@ -35,11 +35,32 @@ def eliminar_blog(request, blog_id):
     blogs = Blog.objects.all()
     return render(request, "mostrar_blogs.html", {"blogs":blogs})
 
+
+def crear_blog(request):
+    if request.method == "POST":
+        formulario = BlogForm(request.POST)
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"])
+            blog.save()
+            blogs = Blog.objects.all()
+            return render(request, "mostrar_blogs.html", {"blogs":blogs})
+    else:
+        usuario=get_user(request)
+        fecha=date.today()
+        initial_data={
+            'autor':usuario,
+            'fecha':fecha,
+        }
+        formulario = BlogForm(initial=initial_data)
+    return render(request, "crear_blog.html", {"formulario":formulario})
+
+
 def editar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     if request.method == 'POST':
         formulario = BlogForm(request.POST)
-        if formulario.is_valid:
+        if formulario.is_valid():
             info = formulario.cleaned_data
             blog.titulo = info['titulo']
             blog.subtitulo = info['subtitulo']
@@ -61,17 +82,16 @@ def editar_blog(request, blog_id):
             'fecha':fecha,
         }
         formulario = BlogForm(initial=initial_data)
-    return render(request, 'editar_blogs.html', {'formulario':formulario})
-
+    return render(request, 'editar_blog.html', {'formulario':formulario})
 
 def buscar_blog(request):
     if request.GET.get("autor", False):
         autor=request.GET["autor"]
-        blogs = Blog.objects.filter(autor__icontains=autor)
+        blogs = Blog.objects.filter(autor_icontains=autor)
         return render(request, "buscar_blog.html", {"blogs":blogs})
     else:
-        mensaje="No se encontró ningun Blog con ese autor"
-    return render(request, "buscar_blog.html")
+        mensaje="Ingresa algo"
+    return render(request, "buscar_blog.html", {"mensaje":mensaje})
 
 
 def mostrar_actor(request):
@@ -143,27 +163,6 @@ def fantasia(request):
 
 def about_us(request):
     return render(request, "about_us.html")
-
-
-def crear_blog(request):
-    if request.method == "POST":
-        formulario = BlogForm(request.POST)
-        if formulario.is_valid():
-            info = formulario.cleaned_data
-            blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"])
-            blog.save()
-            blogs = Blog.objects.all()
-            return render(request, "mostrar_blogs.html", {"blogs":blogs})
-    else:
-        usuario=get_user(request)
-        fecha=date.today()
-        initial_data={
-            'autor':usuario,
-            'fecha':fecha,
-        }
-        formulario = BlogForm(initial=initial_data)
-    return render(request, "crear_blog.html", {"formulario":formulario})
-
 
 class SignupView(CreateView):
     form_class=SignUpForm

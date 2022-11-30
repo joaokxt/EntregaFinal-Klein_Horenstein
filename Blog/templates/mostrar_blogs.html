@@ -9,6 +9,9 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             <h1>Todas las reseñas</h1>
+                            <p>
+                                <a class="btn btn-priamry" href="{% url 'buscar' %}">Buscar por autor </a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -30,13 +33,10 @@
                             {% endfor %}
                         </ol>
                     {% else %}
-                        No hay ninguna reseña aun
+                        No hay ninguna reseña aún
                         <br>
                     {% endif %}
-                    <li>
-                        <a class="btn btn-priamry" href="{% url 'buscar' %}">Buscar por autor </a>
-                    </li>
-
+                    <br>
                 </div>
             </div>
         </div>        
