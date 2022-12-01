@@ -87,7 +87,7 @@ def editar_blog(request, blog_id):
 def buscar_blog(request):
     if request.GET.get("autor", False):
         autor=request.GET["autor"]
-        blogs = Blog.objects.filter(autor_icontains=autor)
+        blogs = Blog.objects.filter(autor__icontains=autor)
         return render(request, "buscar_blog.html", {"blogs":blogs})
     else:
         mensaje="Ingresa algo"
