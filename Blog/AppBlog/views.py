@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import get_user
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .models import *
 from .forms import *
@@ -28,20 +29,27 @@ def mostrar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     return render(request, "mostrar_blog.html", {"blog":blog})
 
+def mostrar_usuario(request):
+    avatar = Avatar.objects.filter(user=request.user.id)
+    user = User.objects.get
+    return render(request, "mostrar_usuario.html", {"url":avatar[0].imagen.url})
 
+#def agregar_avatar(request):
+
+@login_required
 def eliminar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     blog.delete()
     blogs = Blog.objects.all()
     return render(request, "mostrar_blogs.html", {"blogs":blogs})
 
-
+@login_required
 def crear_blog(request):
     if request.method == "POST":
         formulario = BlogForm(request.POST)
         if formulario.is_valid():
             info = formulario.cleaned_data
-            blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"])
+            blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"], imagen=info["imagen"])
             blog.save()
             blogs = Blog.objects.all()
             return render(request, "mostrar_blogs.html", {"blogs":blogs})
@@ -55,7 +63,7 @@ def crear_blog(request):
         formulario = BlogForm(initial=initial_data)
     return render(request, "crear_blog.html", {"formulario":formulario})
 
-
+@login_required
 def editar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     if request.method == 'POST':
@@ -71,18 +79,20 @@ def editar_blog(request, blog_id):
             blog.estrellas = info['estrellas']
             blog.autor = info['autor']
             blog.fecha = info['fecha']
+            blog.imagen = info['imagen']
             blog.save()
             blogs=Blog.objects.all()
             return render(request, 'mostrar_blogs.html', {'blogs':blogs})
     else:
-        usuario=get_user(request)
-        fecha=date.today()
+        usuario=blog.autor
+        fecha=blog.fecha
         initial_data={
             'autor':usuario,
             'fecha':fecha,
         }
         formulario = BlogForm(initial=initial_data)
     return render(request, 'editar_blog.html', {'formulario':formulario})
+
 
 def buscar_blog(request):
     if request.GET.get("autor", False):
@@ -92,15 +102,6 @@ def buscar_blog(request):
     else:
         mensaje="Ingresa algo"
     return render(request, "buscar_blog.html", {"mensaje":mensaje})
-
-
-def mostrar_actor(request):
-    actores = Actor.objects.all()
-    return render(request, "mostrar_actor.html", {"actores":actores})
-
-
-def agregar_actor(request):
-    pass
 
 
 def mostrar_generos(request):
@@ -164,6 +165,36 @@ def fantasia(request):
 def about_us(request):
     return render(request, "about_us.html")
 
+
+@login_required
+def mostrar_perfil(request):
+    usuario = request.user
+    
+
+
+@login_required
+def editar_perfil(request):
+    usuario = request.user
+
+    if request.method == "POST":
+        formulario = UserEditForm(request.POST)
+        if formulario.is_valid:
+            informacion = formulario.cleaned_data
+
+            usuario.email = informacion["email"]
+            usuario.password1["password1"]
+            usuario.password2["password2"]
+            usuario.save()
+
+            return render(request, "mostrar_usuario.html")
+    
+    else:
+        formulario = UserEditForm(initial={"email":usuario.email})
+    
+    return render(request, "editar_usuario.html", {"formulario":formulario, "usuario":usuario})
+
+
+
 class SignupView(CreateView):
     form_class=SignUpForm
     success_url=reverse_lazy('inicio')
@@ -173,7 +204,7 @@ class AdminLoginView(LoginView):
     template_name='login.html'
 
 class AdminLogoutView(LogoutView):
-    template_name='logout.html'
+    template_name='index.html'
 
 
 

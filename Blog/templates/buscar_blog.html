@@ -14,13 +14,13 @@
             </div>
         </div>
     </header>
-    <form action="" method="get">
-        <input type="text" name="autor" id="autor">
-        <input type="submit" value="Buscar">
-    </form>
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
+                <form action="" method="get">
+                    <input type="text" name="autor" id="autor">
+                    <input type="submit" value="Buscar">
+                </form>
                 {% if blogs %}
                     <ul>
                         {% for blog in blogs %}

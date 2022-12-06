@@ -20,4 +20,7 @@ urlpatterns = [
     path("logout/", views.AdminLogoutView.as_view(), name="logout"),
     path("crear_resenia/", views.crear_blog, name="crear_resenia"),
     path("buscar/", views.buscar_blog, name="buscar"),
+    path("editar_usuario/", views.editar_perfil, name="editar_perfil"),
+    path("mostrar_usuario/", views.mostrar_usuario, name="mostrar_usuario")
 ]
+

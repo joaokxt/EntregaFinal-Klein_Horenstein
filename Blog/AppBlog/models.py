@@ -1,14 +1,7 @@
 from django.db import models
-from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
-
-class Actor(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    edad = models.IntegerField()
-    def __str__(self):
-        return f"{self.nombre} {self.apellido} ({self.edad}) "
 
 class Blog(models.Model):
     ESTRELLAS  = (
@@ -36,15 +29,10 @@ class Blog(models.Model):
     estrellas = models.CharField(max_length=2, choices=ESTRELLAS)
     autor = models.CharField(max_length=50)
     fecha = models.DateTimeField()
-    #imagen = models.ImageField(upload_to='images/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
     def __str__(self):
         return f"{self.titulo} ({self.anio}) || {self.estrellas}/5 || Por {self.autor}"
 
-
-class Director(models.Model):
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    edad = models.IntegerField()
-    def __str__(self):
-        return f"{self.nombre} {self.apellido} ({self.edad}) "
-    
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares/', null=True, blank=True)

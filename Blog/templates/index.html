@@ -34,11 +34,11 @@
                         <hr class="my-4" />
                         <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="{% url 'mostrar_blogs' %}">Ver todos los posteos →</a></div>
                     {% else %}
-                            <h4> Aún no hay reseñas! </h4>
                             {% if request.user.is_authenticated  %}
-                                <p>Sé el primero en escribir una</p>
+                                <h4> Aún no hay reseñas! </h4>
+                                <p>Sé el primero en escribir una reseña</p>
                             {% else %}
-                                <p>Haz login para empezar a escribir!</p>
+                                <h4>Haz login para empezar a escribir!</h4>
                             {% endif %}
                             <br><br>
                     {% endif %}
