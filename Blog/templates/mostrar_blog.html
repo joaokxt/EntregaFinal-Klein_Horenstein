@@ -9,7 +9,7 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             <h1>"{{blog.subtitulo}}"</h1>
-                            <h5>Reseña de {{blog.titulo}} por {{blog.autor}}</h5>
+                            <h5>Reseña de {{blog.titulo}} por <a href="{% url 'mostrar_usuario' blog.autor %}">{{blog.autor}}</a></h5>
                         </div>
                     </div>
                 </div>

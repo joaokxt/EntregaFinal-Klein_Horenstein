@@ -21,6 +21,7 @@ urlpatterns = [
     path("crear_resenia/", views.crear_blog, name="crear_resenia"),
     path("buscar/", views.buscar_blog, name="buscar"),
     path("editar_usuario/", views.editar_perfil, name="editar_perfil"),
-    path("mostrar_usuario/", views.mostrar_usuario, name="mostrar_usuario")
+    path("mi_perfil/", views.mi_perfil, name="mi_perfil"),
+    path("mostrar_usuario/<blog_autor>/", views.mostrar_usuario, name="mostrar_usuario")
 ]
 

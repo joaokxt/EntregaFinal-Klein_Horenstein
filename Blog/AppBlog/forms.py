@@ -10,6 +10,8 @@ class SignUpForm(UserCreationForm):
     username = forms.CharField(label='Nombre de usuario')
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repetir contraseña', widget=forms.PasswordInput)
+    last_name = forms.CharField(label='Apellido')
+    first_name = forms.CharField(label='Nombre')
     class Meta:
         model=User
         fields=[
@@ -17,6 +19,8 @@ class SignUpForm(UserCreationForm):
             'email',
             'password1',
             'password2',
+            'last_name',
+            'first_name',
         ]
         help_texts = {k:"" for k in fields}
 

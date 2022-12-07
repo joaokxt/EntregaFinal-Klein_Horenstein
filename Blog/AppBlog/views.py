@@ -29,10 +29,11 @@ def mostrar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
     return render(request, "mostrar_blog.html", {"blog":blog})
 
-def mostrar_usuario(request):
-    avatar = Avatar.objects.filter(user=request.user.id)
-    user = User.objects.get
-    return render(request, "mostrar_usuario.html", {"url":avatar[0].imagen.url})
+def mostrar_usuario(request, blog_autor):
+    user = User.objects.get(username=blog_autor)
+    avatar = Avatar.objects.filter(user=user)
+    blogs = Blog.objects.filter(autor=blog_autor)
+    return render(request, "mostrar_usuario.html", {"url":avatar[0].imagen.url, "usuario":user, "blogs":blogs})
 
 #def agregar_avatar(request):
 
@@ -167,10 +168,11 @@ def about_us(request):
 
 
 @login_required
-def mostrar_perfil(request):
-    usuario = request.user
+def mi_perfil(request):
+    avatar = Avatar.objects.filter(user=request.user.id)
+    user = get_user(request)
+    return render(request, "mi_perfil.html", {"url":avatar[0].imagen.url, "usuario":user})
     
-
 
 @login_required
 def editar_perfil(request):
