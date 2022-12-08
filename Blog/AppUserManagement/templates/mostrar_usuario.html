@@ -8,7 +8,9 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>Acción</h1>
+                            <h1>Perfil de {{usuario.username}}</h1>
+                            <h5>{{usuario.first_name}} {{usuario.last_name}}</h5>
+                            <img height="100px" src="{{url}}"/>
                         </div>
                     </div>
                 </div>
@@ -17,19 +19,19 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% if lista_accion %}
-                        <ol>
-                            {% for pelicula in lista_comedia %}
-                                <li>
-                                    <button>
-                                        <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
-                                    </button>
-                                </li>
-                            {% endfor %}
-                        </ol> 
+                    {% if blogs %}
+                    <h3>Reseñas de {{usuario.username}}</h3>
+                    <ol>
+                        {% for blog in blogs %}
+                            <li> 
+                                <a href="{% url 'mostrar_blog' blog.id %}"> {{blog.subtitulo}} ({{blog.titulo}}) </a>
+                            </li>
+                        {% endfor %}
+                    </ol>
                     {% else %}
-                        <h4> Aún no hay reseñas de peliculas de comedia! </h4>
-                    {% endif %}
+                        <p>Este usuario todavía no escribió nada :(</p>
+                        <br>
+                    {% endif %}  
                 </div>
             </div>
         </div>        

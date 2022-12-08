@@ -31,8 +31,4 @@ class Blog(models.Model):
     fecha = models.DateTimeField()
     imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
     def __str__(self):
-        return f"{self.titulo} ({self.anio}) || {self.estrellas}/5 || Por {self.autor}"
-
-class Avatar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='avatares/', null=True, blank=True)
+        return f"{self.titulo} ({self.anio}) || {self.estrellas}/5 || {self.genero} || Por {self.autor}"

@@ -21,8 +21,12 @@
                     <ul>
                         <li>
                             <p><b>Avatar:</b></p>
-                            <img height="100px" src="{{url}}"/>
-                            <button>Cambiar avatar</button>
+                            {% if url %}
+                                <img height="100px" src="{{url}}"/>
+                                <button>Cambiar avatar</button>
+                            {% else %}
+                                <p><a href="{% url 'agregar_avatar' %}">Agregar avatar</a></p>
+                            {% endif %}
                         </li>
                         <li>
                             <p><b>Nombre de usuario:</b> {{usuario.username}} </p>
