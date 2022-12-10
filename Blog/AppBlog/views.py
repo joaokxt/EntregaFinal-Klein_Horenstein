@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 from .models import *
 from .forms import *
 from datetime import date
+from django.urls import reverse_lazy
 import random
 
 
@@ -16,14 +19,23 @@ def index(request):
     return render(request, "index.html", {"blogs":blogs,"blog":blog})
 
 
-def mostrar_blogs(request):
+def mostrar_blogs(request, modo):
     blogs = Blog.objects.all()
-    return render(request, "mostrar_blogs.html", {"blogs":blogs})
+    ver=False
+    editar=False
+    eliminar=False
+    if modo == 'ver':
+        ver=True
+    elif modo == 'eliminar':
+        eliminar=True
+    elif modo == 'editar':
+        editar=True
+    return render(request, "mostrar_blogs.html", {"blogs":blogs, "ver":ver, "editar":editar, "eliminar":eliminar})
 
 
 def mostrar_blog(request, blog_id):
     blog = Blog.objects.get(id=blog_id)
-    return render(request, "mostrar_blog.html", {"blog":blog})
+    return render(request, "mostrar_blog.html", {"blog":blog, "url":blog.imagen})
 
 
 @login_required
@@ -37,7 +49,7 @@ def eliminar_blog(request, blog_id):
 @login_required
 def crear_blog(request):
     if request.method == "POST":
-        formulario = BlogForm(request.POST)
+        formulario = BlogForm(request.POST, request.FILES)
         if formulario.is_valid():
             info = formulario.cleaned_data
             blog = Blog(titulo=info["titulo"],subtitulo=info["subtitulo"],anio=info["anio"],duracion=info["duracion"],genero=info["genero"],resenia=info["resenia"],estrellas=info["estrellas"],autor=info["autor"],fecha=info["fecha"], imagen=info["imagen"])

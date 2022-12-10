@@ -10,6 +10,7 @@
                         <div class="site-heading">
                             <h1>"{{blog.subtitulo}}"</h1>
                             <h5>Reseña de {{blog.titulo}} por <a href="{% url 'usuario' blog.autor %}">{{blog.autor}}</a></h5>
+                            <img height="100px" src="{{url}}"/>
                         </div>
                     </div>
                 </div>
@@ -26,14 +27,6 @@
                     <p>{{blog.resenia}}</p>
                     <h3>Nota final: {{blog.estrellas}} / 5 </h3>
                     <p>Publicado el: {{blog.fecha}}</p>
-                    {% if request.user.is_superuser %}
-                        <button>
-                            <a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a>
-                        </button>
-                        <button>
-                            <a href="{% url 'editar_blog' blog.id %}">Editar</a>
-                        </button>
-                    {% endif %}
                 </div>
             </div>
         </div>        

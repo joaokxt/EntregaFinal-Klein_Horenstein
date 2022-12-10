@@ -24,6 +24,11 @@ def agregar_avatar(request):
         if formulario.is_valid():
             usuario=User.objects.get(username=request.user)
             info = formulario.cleaned_data
+            try:
+                avatar_viejo = Avatar.objects.get(user=usuario)
+                avatar_viejo.delete()
+            except:
+                pass
             avatar=Avatar(user=usuario, imagen=info['imagen'])
             avatar.save()
             return render(request, 'index.html')
@@ -35,17 +40,18 @@ def agregar_avatar(request):
 @login_required
 def mi_perfil(request):
     avatar = Avatar.objects.filter(user=request.user.id)
-    if avatar==None:
-        url=None
-    else:
+    try:
         url=avatar[0].imagen.url
+        sin_avatar=False
+    except:
+        url=None
+        sin_avatar=True
     user = get_user(request)
-    return render(request, "mi_perfil.html", {"url":url, "usuario":user})
+    return render(request, "mi_perfil.html", {"url":url, "usuario":user, "sin_avatar":sin_avatar})
 
 @login_required
 def editar_perfil(request):
     usuario = request.user
-
     if request.method == "POST":
         formulario = UserEditForm(request.POST)
         if formulario.is_valid:

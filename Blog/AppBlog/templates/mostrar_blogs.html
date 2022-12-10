@@ -8,10 +8,18 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>Todas las reseñas</h1>
-                            <p>
-                                <a class="btn btn-priamry" href="{% url 'buscar' %}">Buscar por autor </a>
-                            </p>
+                            {% if eliminar %}
+                                <h1>Eliminar reseñas</h1>
+                                <p>Hacé clic en las cajas rojas para eliminar</p>
+                            {% elif editar %}
+                                <h1>Editar reseñas</h1>
+                                <p>Hacé clic en las cajas azules para editar</p>
+                            {% else %}
+                                <h1>Todas las reseñas</h1>
+                                <p>
+                                    <a class="btn btn-priamry" href="{% url 'buscar' %}">Buscar por autor </a>
+                                </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -25,9 +33,10 @@
                             {% for blog in blogs %}
                                 <li> 
                                     <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
-                                    {% if request.user.is_superuser %}
-                                        <button><a href="{% url 'eliminar_blog' blog.id %}">Eliminar</a></button>
-                                        <button><a href="{% url 'editar_blog' blog.id %}">Editar</a></button>
+                                    {% if eliminar %}
+                                        <button style="background-color: red";><a href="{% url 'eliminar_blog' blog.id %}">X</a></button>
+                                    {% elif editar %}
+                                        <button style="background-color: blue";><a href="{% url 'editar_blog' blog.id %}">#</a></button>
                                     {% endif %}
                                 </li>
                             {% endfor %}

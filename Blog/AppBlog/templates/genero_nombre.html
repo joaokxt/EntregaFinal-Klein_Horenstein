@@ -21,9 +21,7 @@
                         <ol>
                             {% for pelicula in lista %}
                                 <li>
-                                    <button>
-                                        <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
-                                    </button>
+                                    <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
                                 </li>
                             {% endfor %}
                         </ol> 

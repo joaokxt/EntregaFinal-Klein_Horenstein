@@ -21,11 +21,12 @@
                     <ul>
                         <li>
                             <p><b>Avatar:</b></p>
-                            {% if url %}
-                                <img height="100px" src="{{url}}"/>
-                                <button>Cambiar avatar</button>
-                            {% else %}
+                            {% if sin_avatar %}
+                                <img height="100px" src="{% static 'assets/img/avatar_default.jpg' %}"/>
                                 <p><a href="{% url 'agregar_avatar' %}">Agregar avatar</a></p>
+                            {% else %}
+                                <img height="100px" src="{{url}}}"/>
+                                <p><a href="{% url 'agregar_avatar' %}">Cambiar avatar</a></p>
                             {% endif %}
                         </li>
                         <li>

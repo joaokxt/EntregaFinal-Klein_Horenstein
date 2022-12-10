@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from AppBlog import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
     path('', views.index, name="inicio"),
     re_path('blog/', include('AppBlog.urls')),
     re_path('user/', include('AppUserManagement.urls')),

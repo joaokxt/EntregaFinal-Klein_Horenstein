@@ -10,7 +10,11 @@
                         <div class="site-heading">
                             <h1>Perfil de {{usuario.username}}</h1>
                             <h5>{{usuario.first_name}} {{usuario.last_name}}</h5>
-                            <img height="100px" src="{{url}}"/>
+                            {% if sin_avatar %}
+                                <img height="100px" src="{% static 'assets/img/avatar_default.jpg' %}"/>
+                            {% else %}
+                                <img height="100px" src="{{url}}"/>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -24,7 +28,7 @@
                     <ol>
                         {% for blog in blogs %}
                             <li> 
-                                <a href="{% url 'mostrar_blog' blog.id %}"> {{blog.subtitulo}} ({{blog.titulo}}) </a>
+                                <a href="{% url 'mostrar_blog' blog.id %}"> "{{blog.subtitulo}}" ({{blog.titulo}}) </a>
                             </li>
                         {% endfor %}
                     </ol>
