@@ -21,5 +21,20 @@ class BlogForm(ModelForm):
         widgets={
             'resenia':forms.Textarea(),
             'autor':forms.TextInput(attrs={'readonly':'readonly'}),
-            'fecha':forms.TextInput(attrs={'readonly':'readonly'}),
+            'fecha':forms.DateInput(attrs={'readonly':'readonly'}),
+        }
+
+class ComentarioForm(ModelForm):
+    class Meta:
+        model=Comentario
+        fields=['texto', 'autor', 'fecha']
+        labels={
+            'texto':"Comentario",
+            'autor':"Autor",
+            'fecha':"Fecha",
+        }
+        widgets={
+            'texto':forms.Textarea(),
+            'autor':forms.TextInput(attrs={'readonly':'readonly'}),
+            'fecha':forms.DateInput(attrs={'readonly':'readonly'})
         }

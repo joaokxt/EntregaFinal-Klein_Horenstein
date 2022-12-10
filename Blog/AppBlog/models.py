@@ -32,3 +32,9 @@ class Blog(models.Model):
     imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
     def __str__(self):
         return f"{self.titulo} ({self.anio}) || {self.estrellas}/5 || {self.genero} || Por {self.autor}"
+
+class Comentario(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    texto = models.CharField(max_length=150)
+    autor = models.CharField(max_length=50)
+    fecha = models.DateTimeField()

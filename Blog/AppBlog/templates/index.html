@@ -23,7 +23,7 @@
                         <div class="post-preview">
                             <a href="{% url 'mostrar_blog' blog.id %}">
                                 <h2 class="post-title">{{blog.titulo}}</h2>
-                                <h3 class="post-subtitle">{{blog.subtitulo}}</h3>
+                                <h3 class="post-subtitle">"{{blog.subtitulo}}"</h3>
                             </a>
                             <p class="post-meta">
                                 Posted by
@@ -31,7 +31,6 @@
                                 on {{blog.fecha}}
                             </p>
                         </div>
-                        <hr class="my-4" />
                     {% else %}
                             {% if request.user.is_authenticated  %}
                                 <h4> Aún no hay reseñas! </h4>

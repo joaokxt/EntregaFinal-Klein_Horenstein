@@ -34,8 +34,25 @@ def mostrar_blogs(request, modo):
 
 
 def mostrar_blog(request, blog_id):
-    blog = Blog.objects.get(id=blog_id)
-    return render(request, "mostrar_blog.html", {"blog":blog, "url":blog.imagen})
+    blog1 = Blog.objects.get(id=blog_id)
+    if request.method == "POST":
+        formulario = ComentarioForm(request.POST)
+        if formulario.is_valid():
+            info = formulario.cleaned_data
+            comentario = Comentario(blog=blog1, texto=info["texto"], autor=info["autor"], fecha=info["fecha"])
+            comentario.save()
+            comentarios = Comentario.objects.filter(blog=blog1)
+            return render(request, "mostrar_blog.html", {"blog":blog1, "comentarios":comentarios, "puede_comentar":False})
+    else:
+        comentarios = Comentario.objects.filter(blog=blog1)
+        usuario=get_user(request)
+        fecha=date.today()
+        initial_data={
+            'autor':usuario,
+            'fecha':fecha,
+        }
+        formulario = ComentarioForm(initial=initial_data)
+    return render(request, "mostrar_blog.html", {"blog":blog1, "url":blog1.imagen, "formulario":formulario, "comentarios":comentarios, "puede_comentar":True})
 
 
 @login_required

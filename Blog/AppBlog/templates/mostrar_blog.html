@@ -27,6 +27,30 @@
                     <p>{{blog.resenia}}</p>
                     <h3>Nota final: {{blog.estrellas}} / 5 </h3>
                     <p>Publicado el: {{blog.fecha}}</p>
+                    <hr class="my-4" />
+                    <h4><i>Comentarios</i></h4>
+                    {% if comentarios %}
+                        <ul>
+                            {% for comentario in comentarios %}
+                                <li>
+                                    <p>'{{comentario.texto}}'<b>  por <a href="{% url 'usuario' comentario.autor %}">{{comentario.autor}}</a></b></p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Todavía no hay comentarios</p>
+                    {% endif %}
+                    {% if puede_comentar %}
+                        <hr class="my-4" />
+                        <h4><i>Dejá tu comentario</i></h4>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table>
+                                {{ formulario.as_table }}
+                            </table>
+                            <input type="submit", value="Publicar", href="{% url 'mostrar_blog' blog.id %}">
+                        </form>
+                    {% endif %}
                 </div>
             </div>
         </div>        
