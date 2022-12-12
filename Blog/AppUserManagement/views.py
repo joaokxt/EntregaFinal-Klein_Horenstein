@@ -15,9 +15,18 @@ def mostrar_usuario(request, blog_autor):
         url=None
     else:
         url=avatar[0].imagen.url
+    bio = Bio.objects.filter(user=usuario)
+    try:
+        desc = bio[0].descripcion
+        pag = bio[0].link
+    except:
+        desc = "El usuario todavía no dejó su descripción."
+        pag = "Indisponible"
     blogs = Blog.objects.filter(autor=blog_autor)
-    return render(request, "mostrar_usuario.html", {"url":url, "usuario":usuario, "blogs":blogs})
+    return render(request, "mostrar_usuario.html", {"url":url, "usuario":usuario, "blogs":blogs, "desc":desc, "pag":pag})
 
+
+@login_required
 def agregar_avatar(request):
     if request.method == 'POST':
         formulario = AvatarForm(request.POST, request.FILES)
@@ -34,12 +43,20 @@ def agregar_avatar(request):
             avatar = Avatar.objects.filter(user=request.user.id)
             img=avatar[0].imagen.url
             bio = Bio.objects.filter(user=request.user.id)
+            try:
+                desc = bio[0].descripcion
+                pag = bio[0].link
+            except:
+                desc = "Indisponible"
+                pag = "Indisponible"
             user = get_user(request)
-            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":False, "bio":bio})
+            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":False, "desc":desc, "pag":pag})
     else:
         formulario=AvatarForm()
     return render(request, 'agregar_avatar.html', {'formulario':formulario})
 
+
+@login_required
 def editar_bio(request):
     if request.method == 'POST':
         formulario = BioEditForm(request.POST)
@@ -54,14 +71,20 @@ def editar_bio(request):
             bio=Bio(user=usuario, link=info['link'], descripcion=info['descripcion'])
             bio.save()
             avatar = Avatar.objects.filter(user=request.user.id)
-            img=avatar[0].imagen.url
+            try:
+                img=avatar[0].imagen.url
+                sin_avatar=False
+            except:
+                img=None
+                sin_avatar=True
             bio = Bio.objects.filter(user=request.user.id)
-            desc = bio.descripcion
-            link = bio.link
+            desc = bio[0].descripcion
+            link = bio[0].link
             user = get_user(request)
-            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":False, "desc":desc, "link":link})
+            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":sin_avatar, "desc":desc, "link":link})
     else:
         formulario=BioEditForm()
+        usuario=User.objects.get(username=request.user)
     return render(request, 'editar_bio.html', {'formulario':formulario, 'usuario':usuario})  
 
 

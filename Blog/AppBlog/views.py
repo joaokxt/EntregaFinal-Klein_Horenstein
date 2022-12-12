@@ -130,8 +130,26 @@ def mostrar_generos(request):
 
 
 def genero(request, genero_nombre):
+    accion=False
+    drama=False
+    terror=False
+    scifi=False
+    comedia=False
+    fantasia=False
     blogs=list(Blog.objects.filter(genero=genero_nombre))
-    return render(request, "genero_nombre.html", {"lista":blogs,"nombre":genero_nombre})
+    if genero_nombre == 'Acción':
+        accion=True
+    elif genero_nombre == 'Drama':
+        drama=True
+    elif genero_nombre == 'Terror':
+        terror=True
+    elif genero_nombre == 'Ciencia-ficción':
+        scifi=True
+    elif genero_nombre == 'Comedia':
+        comedia=True
+    elif genero_nombre == 'Fantasia':
+        fantasia=True
+    return render(request, "genero_nombre.html", {"lista":blogs,"nombre":genero_nombre, "accion":accion, "drama":drama, "terror":terror, "scifi":scifi, "comedia":comedia, "fantasia":fantasia})
 
 
 def about_us(request):

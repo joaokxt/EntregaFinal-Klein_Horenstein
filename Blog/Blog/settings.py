@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'AppBlog',
     'AppUserManagement',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -120,18 +122,40 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = 'static_root/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static/"),
 ]
+
+CKEDITOR_BASEPATH = 'static_root/ckeditor/ckeditor'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 LOGIN_URL = 'login'
+
 LOGIN_REDIRECT_URL = 'inicio'
 
+
 MEDIA_URL = '/media/'
+
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+
 MEDIA_ROOT = MEDIA_DIR
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'

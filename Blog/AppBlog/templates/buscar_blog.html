@@ -24,12 +24,14 @@
                 {% if blogs %}
                     <ul>
                         {% for blog in blogs %}
-                            <li> {{blog}} </li>
+                            <li> 
+                                <p><a href="{% url 'mostrar_blog' blog.id %}">{{blog}}</a> </p>
+                            </li>
                         {% endfor %}
                     </ul>
                 {% else %}
                     {% if blog.autor == autor %}
-                        <p> No se encontro </p>
+                        <p> No se encontró nada </p>
                     {% else %}
                         <p> Ingrese un autor </p>
                     {% endif %}  

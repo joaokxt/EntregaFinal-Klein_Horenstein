@@ -3,28 +3,92 @@
 
 {% block codigoDinamico %}
     <body>
-        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>{{nombre}}</h1>
+        {% if accion %}
+            <header class="masthead" style="background-image: url(https://wallpaperaccess.com/full/3075825.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+        {% elif drama %}
+            <header class="masthead" style="background-image: url(https://media.glamour.com/photos/5ec2e91dccfbc8c1a8fe8cbf/master/w_3000,h_2032,c_limit/MSDTITA_FE057.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% elif terror %}
+            <header class="masthead" style="background-image: url(https://cdn.wallpapersafari.com/89/49/FiEhVR.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% elif scifi %}
+            <header class="masthead" style="background-image: url(https://www.teahub.io/photos/full/252-2525971_sci-fi-movie-background.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% elif comedia %}
+            <header class="masthead" style="background-image: url(https://sm.ign.com/t/ign_hu/screenshot/default/borat-2_ymw5.1280.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% elif fantasia %}
+            <header class="masthead" style="background-image: url(https://wallpapercave.com/wp/wp5771113.jpg)">
+                <div class="container position-relative px-4 px-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-md-10 col-lg-8 col-xl-7">
+                            <div class="site-heading">
+                                <h1>{{nombre}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endif %}
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     {% if lista %}
-                        <ol>
-                            {% for pelicula in lista %}
-                                <li>
-                                    <a href="{% url 'mostrar_blog' pelicula.id %}"> {{pelicula}} </a>
+                        <ul class="list-inline text-center">
+                            {% for blog in lista %}
+                                <li class="list-inline-item">
+                                <img height="300px" src="{{blog.imagen.url}}"/><br> 
+                                <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
+                                <hr class="my-4" />
                                 </li>
                             {% endfor %}
-                        </ol> 
+                        </ul>
                     {% else %}
                         <h4> Aún no hay reseñas de peliculas de {{nombre}} ! </h4>
                         <br>

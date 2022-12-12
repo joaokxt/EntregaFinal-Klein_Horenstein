@@ -3,7 +3,7 @@
 
 {% block codigoDinamico %}
     <body>
-        <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+        <header class="masthead" style="background-image: url(https://as2.ftcdn.net/v2/jpg/01/54/76/07/1000_F_154760711_C3jq59wTGrNVmIyB8DI54qkdlP6QBxZD.jpg)">
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -17,7 +17,7 @@
                             {% else %}
                                 <h1>Todas las reseñas</h1>
                                 <p>
-                                    <a class="btn btn-priamry" href="{% url 'buscar' %}">Buscar por autor </a>
+                                    <a class="btn btn-priamry" href="{% url 'buscar' %}" style="color: white";>Buscar por autor </a>
                                 </p>
                             {% endif %}
                         </div>
@@ -29,18 +29,21 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     {% if blogs %}
-                        <ol>
-                            {% for blog in blogs %}
-                                <li> 
-                                    <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
-                                    {% if eliminar %}
-                                        <button style="background-color: red";><a href="{% url 'eliminar_blog' blog.id %}">X</a></button>
-                                    {% elif editar %}
-                                        <button style="background-color: blue";><a href="{% url 'editar_blog' blog.id %}">#</a></button>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ol>
+                    <ul class="list-inline text-center">
+                        {% for blog in blogs %}
+                        <li class="list-inline-item">
+                            <img height="300px" src="{{blog.imagen.url}}"/><br> 
+                            <a href="{% url 'mostrar_blog' blog.id %}"> {{blog}} </a>
+                            {% if eliminar %}
+                                <button style="background-color: red";><a href="{% url 'eliminar_blog' blog.id %}">X</a></button>
+                            {% elif editar %}
+                                <button style="background-color: blue";><a href="{% url 'editar_blog' blog.id %}">#</a></button>
+                            {% endif %}
+                            <hr class="my-4" />
+                        </li>
+                        {% endfor %}
+                    </ul>
+                        
                     {% else %}
                         <p>Aún no hay reseñas :,(</p>
                         <br>

@@ -1,14 +1,16 @@
 from django import forms
 from django.forms import ModelForm
+from ckeditor.widgets import CKEditorWidget
 from .models import *
 
 class BlogForm(ModelForm):
+    resenia = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model=Blog
         fields='__all__'
         labels={
             'titulo':"Título del film",
-            'anio':"Año de lanzamiento",
+            'anio':"Fecha de lanzamiento (AAAA-MM-DD)",
             'duracion':"Duración en minutos",
             'genero':"Género",
             'imagen':"Portada",
@@ -19,7 +21,6 @@ class BlogForm(ModelForm):
             'fecha':"Fecha de publicación",
         }
         widgets={
-            'resenia':forms.Textarea(),
             'autor':forms.TextInput(attrs={'readonly':'readonly'}),
             'fecha':forms.DateInput(attrs={'readonly':'readonly'}),
         }

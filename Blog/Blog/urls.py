@@ -22,6 +22,7 @@ from AppBlog import views
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('', views.index, name="inicio"),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     re_path('blog/', include('AppBlog.urls')),
     re_path('accounts/', include('AppUserManagement.urls')),
 ]
