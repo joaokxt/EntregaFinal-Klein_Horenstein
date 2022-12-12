@@ -100,16 +100,20 @@ def editar_blog(request, blog_id):
             blog.estrellas = info['estrellas']
             blog.autor = info['autor']
             blog.fecha = info['fecha']
-            blog.imagen = info['imagen']
             blog.save()
             blogs=Blog.objects.all()
             return render(request, 'mostrar_blogs.html', {'blogs':blogs})
     else:
-        usuario=blog.autor
-        fecha=blog.fecha
         initial_data={
-            'autor':usuario,
-            'fecha':fecha,
+            'titulo':blog.titulo,
+            'subtitulo':blog.subtitulo,
+            'anio':blog.anio,
+            'duracion':blog.duracion,
+            'genero':blog.genero,
+            'resenia':blog.resenia,
+            'estrellas':blog.estrellas,
+            'autor':blog.autor,
+            'fecha':blog.fecha,
         }
         formulario = BlogForm(initial=initial_data)
     return render(request, 'editar_blog.html', {'formulario':formulario})

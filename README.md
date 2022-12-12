@@ -18,3 +18,7 @@ João Terck se encargó de:
     -Filtrado de películas por género
     -Suba de imágenes
     -HTML
+
+*Hay 3 reseñas precargadas
+*Usuario admin: Username: Admin | Contraseña: administrador
+*Instalados: Pillow y django-ckeditor
