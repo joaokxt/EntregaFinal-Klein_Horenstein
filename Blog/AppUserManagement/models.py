@@ -5,3 +5,8 @@ from django.contrib.auth.models import User
 class Avatar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='avatares/', null=True, blank=True)
+
+class Bio(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    link = models.URLField()
+    descripcion = models.CharField(max_length=200)

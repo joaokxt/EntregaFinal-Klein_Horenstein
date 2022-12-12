@@ -52,7 +52,7 @@ def mostrar_blog(request, blog_id):
             'fecha':fecha,
         }
         formulario = ComentarioForm(initial=initial_data)
-    return render(request, "mostrar_blog.html", {"blog":blog1, "url":blog1.imagen, "formulario":formulario, "comentarios":comentarios, "puede_comentar":True})
+    return render(request, "mostrar_blog.html", {"blog":blog1, "img":blog1.imagen, "formulario":formulario, "comentarios":comentarios, "puede_comentar":True})
 
 
 @login_required

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from AppBlog.models import *
@@ -9,14 +9,14 @@ from .models import *
 from .forms import *
 
 def mostrar_usuario(request, blog_autor):
-    user = User.objects.get(username=blog_autor)
-    avatar = Avatar.objects.filter(user=user)
+    usuario = User.objects.get(username=blog_autor)
+    avatar = Avatar.objects.filter(user=usuario)
     if avatar==None:
         url=None
     else:
         url=avatar[0].imagen.url
     blogs = Blog.objects.filter(autor=blog_autor)
-    return render(request, "mostrar_usuario.html", {"url":url, "usuario":user, "blogs":blogs})
+    return render(request, "mostrar_usuario.html", {"url":url, "usuario":usuario, "blogs":blogs})
 
 def agregar_avatar(request):
     if request.method == 'POST':
@@ -31,46 +31,89 @@ def agregar_avatar(request):
                 pass
             avatar=Avatar(user=usuario, imagen=info['imagen'])
             avatar.save()
-            return render(request, 'index.html')
+            avatar = Avatar.objects.filter(user=request.user.id)
+            img=avatar[0].imagen.url
+            bio = Bio.objects.filter(user=request.user.id)
+            user = get_user(request)
+            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":False, "bio":bio})
     else:
         formulario=AvatarForm()
     return render(request, 'agregar_avatar.html', {'formulario':formulario})
 
+def editar_bio(request):
+    if request.method == 'POST':
+        formulario = BioEditForm(request.POST)
+        if formulario.is_valid():
+            usuario=User.objects.get(username=request.user)
+            info = formulario.cleaned_data
+            try:
+                bio_vieja = Bio.objects.get(user=usuario)
+                bio_vieja.delete()
+            except:
+                pass
+            bio=Bio(user=usuario, link=info['link'], descripcion=info['descripcion'])
+            bio.save()
+            avatar = Avatar.objects.filter(user=request.user.id)
+            img=avatar[0].imagen.url
+            bio = Bio.objects.filter(user=request.user.id)
+            desc = bio.descripcion
+            link = bio.link
+            user = get_user(request)
+            return render(request, 'mi_perfil.html', {"img":img, "usuario":user, "sin_avatar":False, "desc":desc, "link":link})
+    else:
+        formulario=BioEditForm()
+    return render(request, 'editar_bio.html', {'formulario':formulario, 'usuario':usuario})  
+
 
 @login_required
 def mi_perfil(request):
-    avatar = Avatar.objects.filter(user=request.user.id)
+    user = get_user(request)
+    avatar = Avatar.objects.filter(user=request.user)
     try:
-        url=avatar[0].imagen.url
+        img=avatar[0].imagen.url
         sin_avatar=False
     except:
-        url=None
+        img=None
         sin_avatar=True
-    user = get_user(request)
-    return render(request, "mi_perfil.html", {"url":url, "usuario":user, "sin_avatar":sin_avatar})
+    bio = Bio.objects.filter(user=request.user)
+    try:
+        desc = bio[0].descripcion
+        pag = bio[0].link
+    except:
+        desc = "Indisponible"
+        pag = "Indisponible"
+    contexto = {
+        "img":img,
+        "usuario":user, 
+        "sin_avatar":sin_avatar,
+        "desc":desc,
+        "pag":pag
+        }
+    return render(request, "mi_perfil.html", contexto)
+
 
 @login_required
 def editar_perfil(request):
-    usuario = request.user
+    usuario = User.objects.get(id=request.user.id)
     if request.method == "POST":
         formulario = UserEditForm(request.POST)
-        if formulario.is_valid:
+        if formulario.is_valid():
             informacion = formulario.cleaned_data
             usuario.email = informacion["email"]
-            usuario.password1["password1"]
-            usuario.password2["password2"]
+            usuario.password1 = informacion["password1"]
+            usuario.password2 = informacion["password2"]
+            usuario.first_name = informacion["first_name"]
+            usuario.last_name = informacion["last_name"]
             usuario.save()
-
-            return render(request, "mostrar_usuario.html")
-    
+        return render(request, "index.html")
     else:
         formulario = UserEditForm(initial={"email":usuario.email})
-    
-    return render(request, "editar_usuario.html", {"formulario":formulario, "usuario":usuario})
+    return render(request, "editar_usuario.html", {"formulario":formulario, "usuario":usuario.username})
+
 
 class SignupView(CreateView):
     form_class=SignUpForm
-    success_url=reverse_lazy('inicio')
+    success_url=reverse_lazy('login')
     template_name='signup.html'
 
 class AdminLoginView(LoginView):

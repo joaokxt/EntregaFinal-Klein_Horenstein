@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('', views.index, name="inicio"),
     re_path('blog/', include('AppBlog.urls')),
-    re_path('user/', include('AppUserManagement.urls')),
+    re_path('accounts/', include('AppUserManagement.urls')),
 ]
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

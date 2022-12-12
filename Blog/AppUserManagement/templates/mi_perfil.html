@@ -9,7 +9,7 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             <h1>Hola, {{usuario.first_name}}</h1>
-                            <h5>Acá podés editar tus datos</h5>
+                            <h5>Acá podés ver tus datos</h5>
                         </div>
                     </div>
                 </div>
@@ -23,20 +23,34 @@
                             <p><b>Avatar:</b></p>
                             {% if sin_avatar %}
                                 <img height="100px" src="{% static 'assets/img/avatar_default.jpg' %}"/>
-                                <p><a href="{% url 'agregar_avatar' %}">Agregar avatar</a></p>
+                                <button><a href="{% url 'agregar_avatar' %}">Agregar avatar</a></button>
                             {% else %}
-                                <img height="100px" src="{{url}}}"/>
-                                <p><a href="{% url 'agregar_avatar' %}">Cambiar avatar</a></p>
+                                <img height="100px" src="{{img}}"/>
+                                <button><a href="{% url 'agregar_avatar' %}">Cambiar avatar</a></button>
                             {% endif %}
                         </li>
                         <li>
-                            <p><b>Nombre de usuario:</b> {{usuario.username}} </p>
+                            <p><b>Nombre de usuario:</b> {{usuario.username}}</p>
+                        </li>
+                        <li>
+                            <p><b>Nombre y apellido:</b> {{usuario.first_name}} {{usuario.last_name}} </p>
                         </li>
                         <li>
                             <p><b>Correo Electrónico:</b> {{usuario.email}}</p>
                         </li>
                         <li>
-                            <p><b>Nombre y apellido:</b> {{usuario.first_name}} {{usuario.last_name}} </p>
+                            <p><b>Sobre mí</b>:</b></p>
+                                <ul>
+                                    <li>
+                                        <p><i>Descripción del usuario:</i></p>
+                                        <p>{{desc}}</p>
+                                    </li>
+                                    <li>
+                                        <p><i>Link personal:</i> {{pag}}</p>
+                                    </li>
+                                </ul>
+                                <button><a href="{% url 'editar_perfil'%}">Editar datos</a></button>
+                                <button><a href="{% url 'editar_bio'%}">Editar bio</a></button>
                         </li>
                     </ul>
                     
