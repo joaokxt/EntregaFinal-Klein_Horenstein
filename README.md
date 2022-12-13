@@ -62,7 +62,7 @@ Ejecutar servidor:
     (venv)C:\Users\joaok\Documents\A-PYTHON\Entrega\EntregaFinal-Klein_Horenstein\Blog> python manage.py runserver
 ```
 
-Y ahora solo acceder :fireworks:
+Y ahora solo acceder en el link :fireworks:
 ```bash
     System check identified no issues (0 silenced).
     December 12, 2022 - 20:54:26
