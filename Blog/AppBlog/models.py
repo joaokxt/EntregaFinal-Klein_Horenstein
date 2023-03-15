@@ -39,3 +39,6 @@ class Comentario(models.Model):
     texto = models.CharField(max_length=150)
     autor = models.CharField(max_length=50)
     fecha = models.DateTimeField()
+
+class Perfil(models.Model):
+    nombre=models.CharField(max_length=50)
