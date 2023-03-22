@@ -2,28 +2,28 @@
 Entrega final del curso de Python de Coder House. Hecho por João Klein Xavier Terck y Guido Horenstein
 
 Moviespedia es una espécie de blog colaborativo, donde los usuarios registrados pueden escribir artículos dando su opinión sobre películas.
-    -Cada artículo contiene:
-        *Título de película y de reseña.
-        *Fecha de lanzamiento de película y su duración en min.
-        *Fecha de publicación y autor.
-        *Reseña.
-        *Género de película y calificación del autor en estrellas.
-    -Los usuarios anónimos solo podrán leer los artículos.
-    -La edición y el borrado de artículos solo es posible si el usuario es administrador. 
+- Cada artículo contiene:
+1. Título de película y de reseña.
+2. Fecha de lanzamiento de película y su duración en min.
+3. Fecha de publicación y autor.
+4. Reseña.
+5. Género de película y calificación del autor en estrellas.
+- Los usuarios anónimos solo podrán leer los artículos.
+- La edición y el borrado de artículos solo es posible si el usuario es administrador. 
 
 # Rol de cada participante
 Guido Horenstein se encargó de:
-    -Modelos y formularios para creación de blogs
-    -Signup y login/out
-    -Formularios edición de perfil
-    -Búsqueda de blogs
+- Modelos y formularios para creación de blogs
+- Signup y login/out
+- Formularios edición de perfil
+- Búsqueda de blogs
 João Terck se encargó de:
-    -Funcionalidad de comentarios
-    -Bio y avatar de usuario
-    -Edición y apagado de Blogs
-    -Filtrado de películas por género
-    -Suba de imágenes
-    -HTML
+- Funcionalidad de comentarios
+- Bio y avatar de usuario
+- Edición y apagado de Blogs
+- Filtrado de películas por género
+- Suba de imágenes
+- HTML
 
 
 # Información para usuario
