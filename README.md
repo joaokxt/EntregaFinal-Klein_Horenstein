@@ -17,6 +17,7 @@ Guido Horenstein se encargó de:
 - Signup y login/out
 - Formularios edición de perfil
 - Búsqueda de blogs
+
 João Terck se encargó de:
 - Funcionalidad de comentarios
 - Bio y avatar de usuario
