@@ -1,5 +1,5 @@
 # EntregaFinal-Terck_Horenstein
-Entrega final del curso de Python de Coder House. Hecho por João Klein Xavier Terck y Guido Horenstein
+Hecho por João Klein Xavier Terck y Guido Horenstein
 
 Moviespedia es una espécie de blog colaborativo, donde los usuarios registrados pueden escribir artículos dando su opinión sobre películas.
 - Cada artículo contiene:
